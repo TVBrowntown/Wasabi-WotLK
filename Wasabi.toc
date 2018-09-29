@@ -1,4 +1,4 @@
-## Interface: 80000
+## Interface: 30300
 ## Author: p3lim
 ## Version: @project-version@
 ## Title: Lib: Wasabi
