@@ -23,7 +23,8 @@ local function CreateOrUpdateObject(self, key, value)
 	local Object = self.objects[key]
 	if(not Object) then
 		Object = CreateFrame('Button', nil, self.ScrollChild)
-		Object:SetSize(self.objectWidth, self.objectHeight)
+		Object:SetWidth(self.objectWidth)
+		Object:SetHeight(self.objectHeight)
 		Object:RegisterForClicks('AnyUp')
 		Object.parent = self
 

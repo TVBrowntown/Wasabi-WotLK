@@ -80,7 +80,8 @@ Wasabi:RegisterWidget(widgetType, widgetVersion, function(panel, key)
 	local _NAME = panel:GetName() .. key:gsub('^%l', string.upper) .. widgetType
 
 	local Button = CreateFrame('Button', _NAME, panel)
-	Button:SetSize(20, 20)
+	Button:SetWidth(20)
+	Button:SetHeight(20)
 	Button:SetScript('OnClick', OnClick)
 	Button.panel = panel
 	Button.key = key
@@ -94,19 +95,22 @@ Wasabi:RegisterWidget(widgetType, widgetVersion, function(panel, key)
 
 	local Swatch = Button:CreateTexture(nil, 'OVERLAY')
 	Swatch:SetPoint('CENTER')
-	Swatch:SetSize(19, 19)
+	Swatch:SetWidth(19)
+	Swatch:SetHeight(19)
 	Swatch:SetTexture([[Interface\ChatFrame\ChatFrameColorSwatch]])
 	Button.Swatch = Swatch
 
 	local Background = Button:CreateTexture(nil, 'BACKGROUND', nil, 1)
 	Background:SetPoint('CENTER', Swatch)
-	Background:SetSize(16, 16)
+	Background:SetWidth(16)
+	Background:SetHeight(16)
 	Background:SetTexture(1, 1, 1)
 	Button.Background = Background
 
 	local Checkers = Button:CreateTexture(nil, 'BACKGROUND', nil, 2)
 	Checkers:SetPoint('CENTER', Swatch)
-	Checkers:SetSize(14, 14)
+	Checkers:SetWidth(14)
+	Checkers:SetHeight(14)
 	Checkers:SetTexture([[Tileset\Generic\Checkers]])
 	Checkers:SetTexCoord(1/4, 0, 1/2, 1/4)
 	Checkers:SetDesaturated(true)

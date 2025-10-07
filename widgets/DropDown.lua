@@ -53,6 +53,7 @@ local function OnValueClick(self)
 end
 
 local function OnClick(self)
+	print(self)
 	local parent = self:GetParent()
 	local Menu = parent.Menu
 	parent:Fire('Toggle', not Menu:IsShown())
@@ -76,13 +77,22 @@ local function OnClick(self)
 
 				local Check = CreateFrame('CheckButton', nil, Button)
 				Check:SetPoint('LEFT')
-				Check:SetSize(16, 16)
-				Check:SetNormalTexture([[Interface\Common\UI-DropDownRadioChecks]])
-				Check:GetNormalTexture():SetTexCoord(1/2, 1, 1/2, 1)
-				Check:SetCheckedTexture([[Interface\Common\UI-DropDownRadioChecks]])
-				Check:GetCheckedTexture():SetTexCoord(0, 1/2, 1/2, 1)
+				Check:SetWidth(16)
+				Check:SetHeight(16)
+
+				local NormalTexture = Check:CreateTexture(nil, 'ARTWORK')
+				NormalTexture:SetAllPoints()
+				NormalTexture:SetTexture([[Interface\Common\UI-DropDownRadioChecks]])
+				NormalTexture:SetTexCoord(1/2, 1, 1/2, 1)
+				Check:SetNormalTexture(NormalTexture)
+
+				local CheckedTexture = Check:CreateTexture(nil, 'ARTWORK')
+				CheckedTexture:SetAllPoints()
+				CheckedTexture:SetTexture([[Interface\Common\UI-DropDownRadioChecks]])
+				CheckedTexture:SetTexCoord(0, 1/2, 1/2, 1)
+				Check:SetCheckedTexture(CheckedTexture)
+
 				Check:EnableMouse(false)
-				Check:SetText(value)
 				Button.Check = Check
 
 				local Text = Button:CreateFontString(nil, nil, 'GameFontHighlightSmall')
@@ -90,7 +100,7 @@ local function OnClick(self)
 				Text:SetText(value)
 				Button:SetFontString(Text)
 
-				local textWidth = Button:GetTextWidth()
+				local textWidth = Text:GetStringWidth()
 				if(textWidth > width) then
 					width = textWidth
 				end
@@ -100,10 +110,12 @@ local function OnClick(self)
 			end
 
 			for _, Button in next, Menu.buttons do
-				Button:SetSize(32 + width, 18)
+			    Button:SetWidth(32 + width)
+			    Button:SetHeight(18)
 			end
 
-			Menu:SetSize(60 + width, 28 + 18 * index)
+			Menu:SetWidth(60 + width)
+			Menu:SetHeight(28 + 18 * index)
 		end
 
 		for key, Button in next, Menu.buttons do
@@ -152,7 +164,8 @@ Wasabi:RegisterWidget(widgetType, widgetVersion, function(panel, key)
 
 	local Button = CreateFrame('Button', nil, Frame)
 	Button:SetPoint('TOPRIGHT', RightTexture, -16, -18)
-	Button:SetSize(24, 24)
+	Button:SetWidth(24)
+	Button:SetHeight(24)
 	Button:SetNormalTexture([[Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up]])
 	Button:SetPushedTexture([[Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down]])
 	Button:SetDisabledTexture([[Interface\ChatFrame\UI-ChatIcon-ScrollDown-Disabled]])
@@ -163,11 +176,12 @@ Wasabi:RegisterWidget(widgetType, widgetVersion, function(panel, key)
 
 	local Value = Button:CreateFontString(nil, nil, 'GameFontHighlightSmall')
 	Value:SetPoint('RIGHT', Button, 'LEFT')
-	Value:SetSize(0, 10)
+	Value:SetWidth(0)
+	Value:SetHeight(10)
 	Button:SetFontString(Value)
 	Button.Value = Value
 
-	local Menu = CreateFrame('Frame', nil, Frame)
+	local Menu = CreateFrame('Frame', nil, UIParent)
 	Menu:SetPoint('TOPLEFT', Frame, 'BOTTOMLEFT', 0, 4)
 	Menu:SetBackdrop(BACKDROP)
 	Menu:SetFrameStrata('DIALOG')
